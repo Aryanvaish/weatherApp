@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="icon" type="image/favicon" href="images/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="mainCard">
+        <div class="searchBox">
+            <input type="text" class="searchBar">
+            <button class="searchbtn">Search</button>
+        </div>
+
+        <div class="defCard">
+            <h2>To Continue, You Must Allow The Location !!!</h2>
+            <img src="images/angry.gif" alt="icon">
+        </div>
+
+        <div class="card">
+            <div class="mainCont">
+                <div class="dateMonth">
+                    <strong class="day"></strong>
+                    <strong class="date"></strong>
+                    <br>
+                    <strong class="month"></strong>
+                </div>
+                <div class="temp">
+                    <h2 class="tempDeg"></h2>
+                    <h2 class="degSign">°</h2>
+                    <img src="  " alt="Weather-Icon" class="CurWeather_logo">
+                </div>
+
+                <div class="weeklyWeather">
+                    <ul>
+                        <li class="weatherStatus">
+                            <strong>Weather Status</strong>
+                            <p></p>
+                        </li>
+                        <li class="humidityTemp">
+                            <strong>Humidity</strong>
+                            <p></p>
+                        </li>
+                        <li class="windSpeedTemp">
+                            <strong>Wind Speed</strong>
+                            <p></p>
+                        </li>
+                        <li class="windDirTemp">
+                            <strong>Wind Direction</strong>
+                            <p></p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <img src="images/raining.jpg" alt="Weather Img" class="CardImg">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
