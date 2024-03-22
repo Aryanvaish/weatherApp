@@ -49,7 +49,8 @@ section {
     border-radius: 30px;
     background-color: #fff;
     box-shadow: 2px 2px 4px #7c7272;
-    font-weight: 400;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .defCard{
@@ -115,7 +116,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px 0;
+    gap: 0 0;
 }
 
 .dateMonth strong{
@@ -136,7 +137,7 @@ section {
 
 .temp{
     display: flex;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 0 5px;
 }
 
@@ -145,6 +146,13 @@ section {
     font-family: Bebas Neue;
     font-weight: 500;
     color: #0CB2F0;
+}
+
+.temp .currplace {
+    font-size: 80px;
+    font-family: Bebas Neue;
+    font-weight: 500;
+    color: #0cf073;
 }
 
 .temp h2.degSign{
