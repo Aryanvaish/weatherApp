@@ -114,7 +114,6 @@ function onSearch() {
                 card.classList.add('showCard');
             }, 700);
 
-
             }
 
         });
