@@ -1,116 +1,138 @@
-const weatherApiKey= "3bc673086eb50810f1f0817f41b64883"; 
+const weatherApiKey = "3bc673086eb50810f1f0817f41b64883";
 var defaultLocation;
 
 const card = document.querySelector('.card');
 const defCard = document.querySelector('.defCard');
-
 
 const searchBar = document.querySelector('.searchBar');
 const searchbtn = document.querySelector('.searchbtn');
 
 const CurWlogo = document.querySelector('.CurWeather_logo');
 
-
 function windowLoad() {
     const successCallback = (position) => {
         const cordsApi = "https://api.opencagedata.com/geocode/v1/json";
-        const cordsApiweatherApiKey= "191fa887d4694885b80ba152d0a13f69";
+        const cordsApiweatherApiKey = "191fa887d4694885b80ba152d0a13f69";
         const longLatitide = `${position.coords.latitude},${position.coords.longitude}`;
 
-        const apiUrl = `${cordsApi}?key=${cordsApiweatherApiKey}&q=${longLatitide}&pretty=1`; 
+        const apiUrl = `${cordsApi}?key=${cordsApiweatherApiKey}&q=${longLatitide}&pretty=1`;
 
         fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
+            .then((response) => response.json())
+            .then((data) => {
+                const userLocation = data.results[0].components.city;
+                defaultLocation = userLocation;
+                onSearch();
+            });
 
-            const userLocation = data.results[0].components.city;
-            defaultLocation = userLocation;
-            
-            // console.log(defaultLocation, "   ",userLocation);
-
-            onSearch();
-        });
-       
         setTimeout(() => {
             defCard.classList.add('hidedefCard');
         }, 500);
-        
+
         setTimeout(() => {
             card.classList.add('showCard');
         }, 1500);
-        
+
     };
 
-    const errorCallback = (error) => {defaultLocation
-     alert("To Continue using live location, You have to accept the location 🫡 !!!");
-        console.log("location Denied");
+    const errorCallback = (error) => {
+        defaultLocation
+        alert("To Continue using live location, You have to accept the location 🫡 !!!");
+        // console.log("location Denied");
         card.style.display = "none";
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
+} windowLoad();
 
-}windowLoad();
 
-
-function onSearch(){
+function onSearch() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${defaultLocation}&appid=${weatherApiKey}`)
-    .then(response => response.json())
-    .then(weatherdata => {
+        .then(response => response.json())
+        .then(weatherdata => {
+            // console.log("weatherdata", weatherdata);
+            if (weatherdata?.cod === '404') {
 
-        const DayArr = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-        const monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                document.querySelector('.defCard h2').textContent = 'Not Found, Please Try Again !!';
 
-        const currDay = document.querySelector('.dateMonth .day');
-        const currDate = document.querySelector('.dateMonth .date');
-        const currMonth = document.querySelector('.dateMonth .month');
+                setTimeout(() => {
+                    defCard.classList.remove('hidedefCard');
+                }, 1000);
 
-        const tempDeg = document.querySelector('.tempDeg');
-        const currplace = document.querySelector('.currplace');
-        const weatherStatus = document.querySelector('.weatherStatus p');
-        const humidityTemp = document.querySelector('.humidityTemp p');
-        const windSpeedTemp = document.querySelector('.windSpeedTemp p');
-        const windDirTemp = document.querySelector('.windDirTemp p');
+                setTimeout(() => {
+                    card.classList.remove('showCard');
+                }, 0);
+            }else{
 
+            const DayArr = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+            const monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        const date = new Date();
+            const currDay = document.querySelector('.dateMonth .day');
+            const currDate = document.querySelector('.dateMonth .date');
+            const currMonth = document.querySelector('.dateMonth .month');
 
-        currDate.innerHTML = date.getDate();
+            const tempDeg = document.querySelector('.tempDeg');
+            const currplace = document.querySelector('.currplace');
+            const weatherStatus = document.querySelector('.weatherStatus p');
+            const humidityTemp = document.querySelector('.humidityTemp p');
+            const windSpeedTemp = document.querySelector('.windSpeedTemp p');
+            const windDirTemp = document.querySelector('.windDirTemp p');
 
-        for (let i = 0; i < DayArr.length; i++) {
-            currDay.innerHTML = DayArr[date.getDay()];
-        }
+            const date = new Date();
+            currDate.innerHTML = date.getDate();
 
-        for (let j = 0; j < monthsArr.length; j++) {
-            currMonth.innerHTML = monthsArr[date.getMonth()];
-        }
+            for (let i = 0; i < DayArr.length; i++) {
+                currDay.innerHTML = DayArr[date.getDay()];
+            }
 
-        tempDeg.textContent = (weatherdata.main.temp - 273.15).toString().substring(0, 2);
-        weatherStatus.innerHTML = weatherdata.weather[0].main;
-        humidityTemp.textContent = weatherdata.main.humidity;
-        windSpeedTemp.textContent = weatherdata.wind.speed;
-        windDirTemp.textContent = weatherdata.wind.deg;
-        currplace.innerHTML = weatherdata.name;
+            for (let j = 0; j < monthsArr.length; j++) {
+                currMonth.innerHTML = monthsArr[date.getMonth()];
+            }
 
-        if(tempDeg.textContent <= 20){
-             CurWlogo.setAttribute('src', "images/rain.svg");
-          }else if(tempDeg.textContent > 20){ 
-             CurWlogo.setAttribute('src', "images/day.svg");
-        }
-        
-    });
-
-
-}  
+            tempDeg.textContent = (weatherdata.main.temp - 273.15).toString().substring(0, 2);
+            weatherStatus.innerHTML = weatherdata.weather[0].main;
 
 
+            currplace.innerHTML = weatherdata.name;
+            humidityTemp.textContent = weatherdata.main.humidity;
+            windSpeedTemp.textContent = weatherdata.wind.speed;
+            windDirTemp.textContent = weatherdata.wind.deg;
+
+            if (tempDeg.textContent <= 20) {
+                CurWlogo.setAttribute('src', "images/rain.svg");
+            } else if (tempDeg.textContent > 20) {
+                CurWlogo.setAttribute('src', "images/day.svg");
+            }
+            
+            setTimeout(() => {
+                defCard.classList.add('hidedefCard');
+            }, 300);
+
+            setTimeout(() => {
+                card.style.display = "flex";
+                card.classList.add('showCard');
+            }, 700);
+
+
+            }
+
+        });
+}
 
 searchbtn.addEventListener('click', (e) => {
     e.preventDefault();
 
     defaultLocation = searchBar.value;
-    console.log(searchBar.value);
+    // console.log(searchBar.value);
 
     onSearch();
-    
+    searchBar.value = '';
 });
+
+
+searchBar.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        searchbtn.dispatchEvent(new Event("click"));
+    }
+})

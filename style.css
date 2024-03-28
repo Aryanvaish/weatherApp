@@ -96,7 +96,6 @@ section {
     transition: all 1s ease;
 }
 
-
 .hidedefCard{
     height: 0;
     width: 0;
@@ -189,4 +188,84 @@ section {
     color: #0CB2F0;
     display: block;
     text-align: center;
+}
+
+@media(max-width: 780px){
+    #mainCard {
+        padding: 0 15px;
+    }
+
+    .defCard{
+        max-height: 340px;
+        gap: 20px;
+    }
+
+    .defCard > h2{
+        font-size: 18px;
+        line-height: 23px;
+        text-align: center;
+        padding: 0 30px;
+    }
+
+    .defCard img {
+        max-width: 70px;
+    }
+
+    .card .CardImg{
+        display: none;
+    }
+
+    .card .mainCont {
+        max-width: 100%;
+        padding: 25px 20px 0;
+    }
+    
+    .dateMonth strong{
+        font-size: 45px;
+        line-height: 45px;
+    }
+
+    .temp h2 {
+        font-size: 70px;
+    }
+
+    .temp > img {
+        width: 70px;
+    }
+
+    .temp .currplace {
+        width: max-content;
+        font-size: 45px;
+    }    
+
+    .weeklyWeather ul {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 15px 0;
+    }
+    
+    .weeklyWeather ul li {
+        max-width: 48%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .card{
+        max-height: 340px;
+    }
+    
+    .weeklyWeather ul strong {
+        font-size: 14px;
+    }
+
+    .weeklyWeather ul p {
+        font-size: 13px;
+    }
+
+    .tempDeg{
+       margin: 0 0 0 5px;
+    }
+
+
+
 }
