@@ -20,7 +20,8 @@ function windowLoad() {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                const userLocation = data.results[0].components.city;
+                const userLocation = data.results[0].components.state;
+                console.log(`OnLoad User Location is ${userLocation}`);
                 defaultLocation = userLocation;
                 onSearch();
             });
@@ -122,8 +123,8 @@ function onSearch() {
 searchbtn.addEventListener('click', (e) => {
     e.preventDefault();
 
+    console.log(`User Searched Location is ${searchBar.value}`);
     defaultLocation = searchBar.value;
-    // console.log(searchBar.value);
 
     onSearch();
     searchBar.value = '';
